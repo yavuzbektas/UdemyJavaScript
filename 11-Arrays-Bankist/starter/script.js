@@ -45,9 +45,12 @@ const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
+const containerLoginForm = document.querySelector('.login');
+const containerLogoutForm = document.querySelector('.logout');
 const containerMovements = document.querySelector('.movements');
 
 const btnLogin = document.querySelector('.login__btn');
+const btnLogout = document.querySelector('.logout__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
@@ -180,10 +183,54 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
-const test1c = [5, 2, 4, 1, 15, 8, 3]
-  .map(val => (val <= 2 ? val * 2 : 4 * val + 16))
-  .filter(val => val => 18)
-  .reduce(function (acc, val, i, arr) {
-    return acc + val / arr.length;
-  }, 0);
-console.log(`${test1c}`);
+// const test1c = [5, 2, 4, 1, 15, 8, 3]
+//   .map(val => (val <= 2 ? val * 2 : 4 * val + 16))
+//   .filter(val => val => 18)
+//   .reduce(function (acc, val, i, arr) {
+//     return acc + val / arr.length;
+//   }, 0);
+// console.log(`${test1c}`);
+
+//----- USER LOGIN ----------
+
+const createUsernames = function (arr = []) {
+  arr.forEach(function (arr) {
+    arr.username = arr.owner
+      .toLowerCase()
+      .split(' ')
+      .map(val => val[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+console.log(accounts);
+
+let currentAccount;
+const loginCheck = btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    acc =>
+      acc.username === inputLoginUsername.value &&
+      acc.pin === Number(inputLoginPin.value)
+  );
+  if (currentAccount) {
+    console.log(`login is success `);
+    containerApp.style.opacity = 100;
+    containerLoginForm.style.display = 'none';
+
+    containerLogoutForm.style.display = 'flex';
+  } else {
+    console.log(`login is failed `);
+    containerApp.style.opacity = 0;
+    containerLoginForm.style.display = 'flex';
+
+    containerLogoutForm.style.display = 'none';
+  }
+});
+// ---- UI UPDATEDE -------
+
+//----- TRANSFER MONEY------
+
+// ---- REQUEST LOAN ------
+
+/// ---- DELETE USER ------
